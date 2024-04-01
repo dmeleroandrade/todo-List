@@ -1,6 +1,6 @@
 <template>
-  <div class="header text-white text-center mb-3">
-   
+  <div class="header text-center mb-3 p-2">
+<h2>Lista de tareas</h2>
   </div>
 </template>
 

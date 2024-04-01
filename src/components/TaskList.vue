@@ -6,7 +6,7 @@
     </div>
     <div class="row" v-for="task in filterTasks" v-bind:key="task.description">
       <div class="col">
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush mt-2">
           <li class="list-group-item">{{ task.description }}</li>
           <li class="list-group-item"></li>
         </ul>
@@ -21,7 +21,7 @@
     </div>
 
     <!-- aquí pongo el input para agregar una nueva tarea -->
-    <div class="row">
+    <div class="row addtask">
       <div class="col">
         <input class="form-control mt-2" placeholder="Añade una nueva tarea..." v-model="newItem" />
       </div>
@@ -47,7 +47,7 @@
 
 <script>
 export default {
-  name: "AppNavBar",
+  name: "TaskList",
   data() {
     return {
       tasks: [
@@ -90,4 +90,5 @@ export default {
 .button-add-board{
     margin-left: 61px;
 }
+
 </style>

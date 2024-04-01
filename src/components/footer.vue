@@ -1,6 +1,6 @@
 <template>
     <div class="footer container-fluid">
-        <h1 class="mt-2 text-white">footer</h1>
+        <h2 class="mt-2 ">footer</h2>
     </div>
 </template>
 

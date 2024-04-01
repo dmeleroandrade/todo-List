@@ -1,7 +1,7 @@
-<template class="bg-primary">
-  <div id="app" class="container-fluid">
+<template class="background">
+  <div id="app" class="container-fluid background">
     <Header />
-    <NavBar/>
+    <TaskList/>
     <Footer />
   </div>
 </template>
@@ -9,13 +9,13 @@
 <script>
 import Header from "./components/header.vue";
 import Footer from "./components/footer.vue";
-import NavBar from "./components/NavBar.vue";
+import TaskList from "./components/TaskList.vue";
  export default {
   name: "App",
   components: {
     Header,
     Footer,
-    NavBar,
+    TaskList,
     },
   data() {
     return {
@@ -26,4 +26,7 @@ import NavBar from "./components/NavBar.vue";
 </script>
 
 <style>
+.background{
+  background-color: rgb(255, 255, 255);
+}
 </style>
