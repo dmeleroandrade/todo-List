@@ -19,6 +19,17 @@
         />{{ task.completed }}
       </div>
     </div>
+
+    <!-- aquí pongo el input para agregar una nueva tarea -->
+    <div class="row">
+      <div class="col">
+        <input class="form-control mt-2" placeholder="Añade una nueva tarea..." v-model="newItem" />
+      </div>
+      <div class="col-2">
+        <button class="btn btn-primary button-add-board mt-2" v-on:click="addTask">Agregar</button>
+      </div>
+    </div>
+
     <div class="row bg-dark py-2 mt-2 text-whit">
       <div class="col text-center">
         <input
@@ -45,6 +56,7 @@ export default {
         { description: "meet", completed: false },
       ],
       completedTasks: true,
+      newItem: ''
     };
   },
   computed: {
@@ -55,6 +67,17 @@ export default {
         : this.tasks;
     },
   },
+  methods:{
+    addTask(){
+        this.tasks.push(
+          {
+            description:this.newItem,
+            completed:false
+          }  
+        );
+        this.newItem = "";
+    }
+  }
 };
 </script>
 <style>
@@ -63,5 +86,8 @@ export default {
 }
 .completed {
   background-color: rgb(137, 138, 138);
+}
+.button-add-board{
+    margin-left: 61px;
 }
 </style>
