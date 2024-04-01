@@ -1,5 +1,5 @@
 <template>
-    <div class="footer container">
+    <div class="footer container-fluid">
         <h1 class="mt-2 text-white">footer</h1>
     </div>
 </template>
@@ -18,5 +18,5 @@ export default {
   text-align: center;
   padding: 0px;
   border-radius: 0.2em;
-  background-color: rgb(213, 214, 214);
+  background-color:#F8F9FA;
 }</style>

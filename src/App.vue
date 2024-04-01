@@ -1,7 +1,7 @@
 <template class="bg-primary">
-  <div id="app" class="container">
+  <div id="app" class="container-fluid">
     <Header />
-    <h2 class="text-center">Lista de tareas de {{ usuario }}</h2>
+    <NavBar/>
     <Footer />
   </div>
 </template>
@@ -9,13 +9,14 @@
 <script>
 import Header from "./components/header.vue";
 import Footer from "./components/footer.vue";
-
-export default {
+import NavBar from "./components/NavBar.vue";
+ export default {
   name: "App",
   components: {
     Header,
     Footer,
-  },
+    NavBar,
+    },
   data() {
     return {
       usuario: "David",
