@@ -1,6 +1,6 @@
 <template>
   <div class="header text-center mb-3 p-2">
-<h2>Lista de tareas</h2>
+<h2>Things to do</h2>
   </div>
 </template>
 

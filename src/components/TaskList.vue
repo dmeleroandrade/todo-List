@@ -21,31 +21,51 @@
     </div>
 
     <!-- aquí pongo el input para agregar una nueva tarea -->
-    <div class="row addtask">
-      <div class="col">
-        <input class="form-control mt-2" placeholder="Añade una nueva tarea..." v-model="newItem" />
+    <section>
+      <div class="row addtask">
+        <div class="col">
+          <input
+            class="form-control mt-2"
+            id="name"
+            placeholder="Añade una nueva tarea..."
+            v-model="newItem"
+          />
+        </div>
+        <div class="col-2">
+          <button
+            class="btn btn-primary button-add-board mt-2"
+            v-on:click="addTask"
+          >
+            Agregar
+          </button>
+          <button
+            class="btn btn-primary button-add-board mt-2"
+            v-on:click="save()"
+          >
+            Guardar
+          </button>
+        </div>
       </div>
-      <div class="col-2">
-        <button class="btn btn-primary button-add-board mt-2" v-on:click="addTask">Agregar</button>
+      <!-- hide -->
+      <div class="row bg-dark py-2 mt-2 text-whit">
+        <div class="col text-center">
+          <input
+            type="checkbox"
+            class="form-check-input me-1"
+            v-model="completedTasks"
+          />
+          <label class="form-check-label text-white font-weight-bold">
+            Hide completed tasks
+          </label>
+        </div>
       </div>
-    </div>
-
-    <div class="row bg-dark py-2 mt-2 text-whit">
-      <div class="col text-center">
-        <input
-          type="checkbox"
-          class="form-check-input me-1"
-          v-model="completedTasks"
-        />
-        <label class="form-check-label text-white font-weight-bold">
-          Hide completed tasks
-        </label>
-      </div>
-    </div>
+    </section>
   </div>
 </template>
 
 <script>
+import { save } from "../toDoService/save.js";
+
 export default {
   name: "TaskList",
   data() {
@@ -56,7 +76,7 @@ export default {
         { description: "meet", completed: false },
       ],
       completedTasks: true,
-      newItem: ''
+      newItem: "",
     };
   },
   computed: {
@@ -67,17 +87,16 @@ export default {
         : this.tasks;
     },
   },
-  methods:{
-    addTask(){
-        this.tasks.push(
-          {
-            description:this.newItem,
-            completed:false
-          }  
-        );
-        this.newItem = "";
-    }
-  }
+  methods: {
+    addTask() {
+      const task = {
+        description: this.newItem,
+        completed: false,
+      };
+      save(task);
+      this.newItem = "";
+    },
+  },
 };
 </script>
 <style>
@@ -87,8 +106,7 @@ export default {
 .completed {
   background-color: rgb(137, 138, 138);
 }
-.button-add-board{
-    margin-left: 61px;
+.button-add-board {
+  margin-left: 61px;
 }
-
 </style>
