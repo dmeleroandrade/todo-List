@@ -1,5 +1,5 @@
 import { db } from '../dbConnection/config.js'
-import { collection, addDoc, } from "firebase/firestore";
+import { collection, addDoc, getDocs} from "firebase/firestore";
 
 export async function save(tarea) {
     try {
@@ -11,4 +11,9 @@ export async function save(tarea) {
         console.error("Error adding document: ", e);
     }
 }
+const querySnapshot = await getDocs(collection(db, "tareas"));
+querySnapshot.forEach((doc) => {
+    console.log(`${doc.id} => ${doc.data()}`);
+});
+
 
