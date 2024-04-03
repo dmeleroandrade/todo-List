@@ -1,6 +1,6 @@
 <template>
-  <div class="header text-white text-center">
-    <h1 class="p-2 rounded">header</h1>
+  <div class="header text-center mb-3 p-2">
+<h2>Things to do</h2>
   </div>
 </template>
 

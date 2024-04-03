@@ -1,7 +1,7 @@
-<template class="bg-primary">
-  <div id="app" class="container">
+<template class="background">
+  <div id="app" class="container-fluid background">
     <Header />
-    <h2 class="text-center">Lista de tareas de {{ usuario }}</h2>
+    <TaskList/>
     <Footer />
   </div>
 </template>
@@ -9,13 +9,14 @@
 <script>
 import Header from "./components/header.vue";
 import Footer from "./components/footer.vue";
-
-export default {
+import TaskList from "./components/TaskList.vue";
+ export default {
   name: "App",
   components: {
     Header,
     Footer,
-  },
+    TaskList,
+    },
   data() {
     return {
       usuario: "David",
@@ -25,4 +26,7 @@ export default {
 </script>
 
 <style>
+.background{
+  background-color: rgb(255, 255, 255);
+}
 </style>
