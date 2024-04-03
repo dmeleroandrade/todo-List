@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col task">Tarea</div>
+      <div class="col task">Tasks</div>
       <div class="col-2 font-weight-bold text-center completed">Completed</div>
     </div>
     <div class="row" v-for="task in filterTasks" v-bind:key="task.description">
@@ -27,7 +27,7 @@
           <input
             class="form-control mt-2"
             id="name"
-            placeholder="Añade una nueva tarea..."
+            placeholder="Add another task..."
             v-model="newItem"
           />
         </div>
@@ -36,13 +36,7 @@
             class="btn btn-primary button-add-board mt-2"
             v-on:click="addTask"
           >
-            Agregar
-          </button>
-          <button
-            class="btn btn-primary button-add-board mt-2"
-            v-on:click="save()"
-          >
-            Guardar
+            Add
           </button>
         </div>
       </div>
@@ -94,7 +88,12 @@ export default {
         completed: false,
       };
       save(task);
+      this.tasks.push({
+        description: this.newItem,
+        completed: false,
+    })
       this.newItem = "";
+   
     },
   },
 };
