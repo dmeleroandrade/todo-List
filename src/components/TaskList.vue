@@ -4,7 +4,7 @@
       <div class="col task">Tasks</div>
       <div class="col-2 font-weight-bold text-center completed">Completed</div>
     </div>
-    <div class="row" v-for="task in filterTasks" v-bind:key="task.description">
+    <div class="row" v-for="(task,index) in filterTasks" v-bind:key="index">
       <div class="col">
         <ul class="list-group list-group-flush mt-2">
           <li class="list-group-item">{{ task.description }}</li>
@@ -38,6 +38,18 @@
           >
             Add
           </button>
+          <button
+            class="btn btn-primary button-add-board mt-2"
+            v-on:click="addTask"
+          >
+            edit
+          </button>
+          <button
+            class="btn btn-primary button-add-board mt-2"
+            v-on:click="addTask"
+          >
+            delete
+          </button>
         </div>
       </div>
       <!-- hide -->
@@ -58,44 +70,63 @@
 </template>
 
 <script>
-import { save } from "../toDoService/save.js";
+import  {db} from "../dbConnection/config.js";
+
+import { collection, getDocs, addDoc } from "firebase/firestore";
 
 export default {
   name: "TaskList",
   data() {
     return {
-      tasks: [
-        { description: "eat", completed: false },
-        { description: "drink", completed: false },
-        { description: "meet", completed: false },
-      ],
+      tasks: [],
       completedTasks: true,
       newItem: "",
     };
   },
+  mounted() {
+    this.getAll();
+  },
   computed: {
-    //creo un method en el que paso una funcion que retorna que con el metodo filter me cree un array si las task no están competadas, si
     filterTasks() {
-      return this.completedTasks
-        ? this.tasks.filter((task) => !task.completed)
-        : this.tasks;
+      return this.completedTasks ? this.tasks.filter((task) => !task.completed) : this.tasks;
     },
   },
   methods: {
-    addTask() {
-      const task = {
-        description: this.newItem,
+  async addTask() {
+    if (!this.newItem.trim()) {
+      console.warn("La descripción de la tarea está vacía.");
+      return;
+    }
+
+    try {
+      const docRef = await addDoc(collection(db, "tareas"), {
+        description: this.newItem.trim(),
         completed: false,
-      };
-      save(task);
+      });
+
       this.tasks.push({
-        description: this.newItem,
+        id: docRef.id,
+        description: this.newItem.trim(),
         completed: false,
-    })
+      });
+
       this.newItem = "";
-   
-    },
+      console.log("Tarea agregada con éxito a Firebase.");
+    } catch (error) {
+      console.error("Error al agregar la tarea a Firebase:", error);
+    }
   },
+  async getAll() {
+    const querySnapshot = await getDocs(collection(db, "tareas"));
+    querySnapshot.forEach((doc) => {
+      this.tasks.push({
+        id: doc.id,
+        description: doc.data().description,
+        completed: doc.data().completed,
+      });
+    });
+  },
+},
 };
 </script>
 <style>
