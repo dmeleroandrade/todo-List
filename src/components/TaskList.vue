@@ -1,68 +1,48 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col task">Tasks</div>
-      <div class="col-2 font-weight-bold text-center completed">Completed</div>
+      <div class="col-7 task">Tasks</div>
+      <div class="col-5 font-weight-bold text-center completed">Completed</div>
     </div>
     <div class="row" v-for="(task,index) in filterTasks" v-bind:key="index">
-      <div class="col">
+      <div class="col-7">
         <ul class="list-group list-group-flush mt-2">
           <li class="list-group-item">{{ task.description }}</li>
-          <li class="list-group-item"></li>
         </ul>
       </div>
-      <div class="col-2 text-center">
-        <input
-          type="checkbox"
-          v-model="task.completed"
-          class="form-check-input me-1"
-        />{{ task.completed }}
+      <section class="col-5">  
+        <div class="d-flex justify-content-end">
+        <div class="mt-3 text-center">
+          <input type="checkbox" v-model="task.completed" class="form-check-input mt-2"/>{{ task.completed ? 'Completed' : '' }}
+        </div>
+        <div class="">
+          <button class="btn btn-primary button-add-board mt-2" v-on:click="addTask">edit</button> 
+        </div>
+        <div class="">
+          <button class="btn btn-danger button-add-board mt-2" v-on:click="addTask">delete</button>
+        </div>
       </div>
+      </section>
     </div>
 
     <!-- aquí pongo el input para agregar una nueva tarea -->
     <section>
       <div class="row addtask">
-        <div class="col">
-          <input
-            class="form-control mt-2"
-            id="name"
-            placeholder="Add another task..."
-            v-model="newItem"
-          />
+        <div class="col-7">
+          <input class="form-control mt-2" id="name" placeholder="Add another task..." v-model="newItem"/>
         </div>
-        <div class="col-2">
-          <button
-            class="btn btn-primary button-add-board mt-2"
-            v-on:click="addTask"
-          >
-            Add
-          </button>
-          <button
-            class="btn btn-primary button-add-board mt-2"
-            v-on:click="addTask"
-          >
-            edit
-          </button>
-          <button
-            class="btn btn-primary button-add-board mt-2"
-            v-on:click="addTask"
-          >
-            delete
-          </button>
+        <div class="col-5">
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-success button-add-board mt-2" v-on:click="addTask"> Add</button>
+          </div>
         </div>
+
       </div>
       <!-- hide -->
       <div class="row bg-dark py-2 mt-2 text-whit">
         <div class="col text-center">
-          <input
-            type="checkbox"
-            class="form-check-input me-1"
-            v-model="completedTasks"
-          />
-          <label class="form-check-label text-white font-weight-bold">
-            Hide completed tasks
-          </label>
+          <input type="checkbox" class="form-check-input me-1" v-model="completedTasks"/>
+          <label class="form-check-label text-white font-weight-bold"> Hide completed tasks </label>
         </div>
       </div>
     </section>

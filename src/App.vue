@@ -1,5 +1,5 @@
 <template class="background">
-  <div id="app" class="container-fluid background">
+  <div id="app" class="container-fluid">
     <Header />
     <TaskList/>
     <Footer />
