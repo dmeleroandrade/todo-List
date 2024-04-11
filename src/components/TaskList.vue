@@ -7,7 +7,7 @@
     <div class="row" v-for="(task,index) in filterTasks" v-bind:key="index">
       <div class="col-7">
         <ul class="list-group list-group-flush mt-2">
-          <li class="list-group-item">{{ task.description }}</li>
+          <li class="list-group-item">{{ task.description }} </li>
         </ul>
       </div>
       <section class="col-5">  
@@ -16,10 +16,10 @@
           <input type="checkbox" v-model="task.completed" class="form-check-input mt-2"/>{{ task.completed ? 'Completed' : '' }}
         </div>
         <div class="">
-          <button class="btn btn-primary button-add-board mt-2" v-on:click="addTask">edit</button> 
+          <button class="btn btn-primary button-add-board mt-2" v-on:click="editTask(task)">edit</button> 
         </div>
         <div class="">
-          <button class="btn btn-danger button-add-board mt-2" v-on:click="addTask">delete</button>
+          <button class="btn btn-danger button-add-board mt-2" v-on:click="deleteTask(task.id)">delete</button>
         </div>
       </div>
       </section>
@@ -52,7 +52,7 @@
 <script>
 import  {db} from "../dbConnection/config.js";
 
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, deleteDoc,updateDoc, doc } from "firebase/firestore";
 
 export default {
   name: "TaskList",
@@ -72,7 +72,9 @@ export default {
     },
   },
   methods: {
+    // Añado las tareas de la db, y la sobrescribo el a interfaz
   async addTask() {
+    // si obtiene espacios en blanco, es decir si no escriben nada, nos devuelve este warning
     if (!this.newItem.trim()) {
       console.warn("La descripción de la tarea está vacía.");
       return;
@@ -96,6 +98,42 @@ export default {
       console.error("Error al agregar la tarea a Firebase:", error);
     }
   },
+
+   // Borro las tareas de la db
+   async deleteTask(taskId) {
+   try {
+       // elimina la tarea de la db
+       await deleteDoc( doc(db, "tareas", taskId));
+
+       // elimino la tarea de la lista local
+       this.tasks = this.tasks.filter((task) => task.id !==taskId);
+
+        console.log("se eliminó con exito de firebase");
+
+
+      }catch(error) {
+    console.error("Error al eliminar la tarea de firebase", error)
+  }
+},
+
+  // Modificar la tarea
+  async editTask(task) {
+  // Abre un cuadro de diálogo o formulario para que el usuario edite la tarea
+
+  // Realiza la actualización en la base de datos
+  try {
+    await updateDoc(doc(db, "tareas", task.id), {
+      description: task.description,
+      completed: task.completed,
+    });
+
+    console.log("Tarea actualizada con éxito en Firebase.");
+  } catch (error) {
+    console.error("Error al actualizar la tarea en Firebase:", error);
+  }
+},
+
+  // Obtengo todas las tareas desde la base de datos
   async getAll() {
     const querySnapshot = await getDocs(collection(db, "tareas"));
     querySnapshot.forEach((doc) => {
@@ -106,9 +144,28 @@ export default {
       });
     });
   },
+
+
+
+  // async deleteTask(taskId) {
+  //     try {
+  //       // Elimina la tarea de la base de datos
+  //       await deleteDoc(doc(db, "tareas", taskId));
+
+  //       // Elimina la tarea de la lista local
+  //       this.tasks = this.tasks.filter((task) => task.id !== taskId);
+
+  //       console.log("Tarea eliminada con éxito de Firebase.");
+  //     } catch (error) {
+  //       console.error("Error al eliminar la tarea de Firebase:", error);
+  //     }
+  //   },
 },
 };
 </script>
+
+
+
 <style>
 .task {
   background-color: rgb(213, 214, 214);
