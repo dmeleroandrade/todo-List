@@ -145,21 +145,6 @@ export default {
     });
   },
 
-
-
-  // async deleteTask(taskId) {
-  //     try {
-  //       // Elimina la tarea de la base de datos
-  //       await deleteDoc(doc(db, "tareas", taskId));
-
-  //       // Elimina la tarea de la lista local
-  //       this.tasks = this.tasks.filter((task) => task.id !== taskId);
-
-  //       console.log("Tarea eliminada con éxito de Firebase.");
-  //     } catch (error) {
-  //       console.error("Error al eliminar la tarea de Firebase:", error);
-  //     }
-  //   },
 },
 };
 </script>
