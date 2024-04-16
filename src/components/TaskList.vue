@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-7 task">Tasks</div>
-      <div class="col-5 font-weight-bold text-center completed">Completed</div>
+      <div class="col-7 text-center task rounded">Tasks</div>
+      <div class="col-5 font-weight-bold text-center completed rounded">Completed</div>
     </div>
     <div class="row" v-for="(task,index) in filterTasks" v-bind:key="index">
       <div class="col-7">
@@ -10,9 +10,9 @@
           <li class="list-group-item">{{ task.description }} </li>
         </ul>
       </div>
-      <section class="col-5">  
-        <div class="d-flex justify-content-end">
-        <div class="mt-3 text-center">
+      <section class="col-5 rounded ">  
+        <div class="d-flex justify-content-end ">
+        <div class="mt-3 text-center ">
           <input type="checkbox" v-model="task.completed" class="form-check-input mt-2"/>{{ task.completed ? 'Completed' : '' }}
         </div>
         <div class="">
@@ -39,7 +39,7 @@
 
       </div>
       <!-- hide -->
-      <div class="row bg-dark py-2 mt-2 text-whit">
+      <div class="row bg-dark py-2 mt-2 text-whit rounded">
         <div class="col text-center">
           <input type="checkbox" class="form-check-input me-1" v-model="completedTasks"/>
           <label class="form-check-label text-white font-weight-bold"> Hide completed tasks </label>
@@ -107,6 +107,8 @@ export default {
 
        // elimino la tarea de la lista local
        this.tasks = this.tasks.filter((task) => task.id !==taskId);
+
+       alert(`<h1>se borró</h1>`)
 
         console.log("se eliminó con exito de firebase");
 
